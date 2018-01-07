@@ -26,3 +26,7 @@ https://github.com/confluentinc/cp-docker-images/tree/4.0.x/examples
     cd v1/
     python3 consumer.py
     python3 producer.py
+
+    cd twitter
+    python3 ../v1/consumer.py
+    python3 twitter_stream.py

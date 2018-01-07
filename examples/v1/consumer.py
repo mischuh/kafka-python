@@ -9,9 +9,11 @@ settings = {
     'default.topic.config': {'auto.offset.reset': 'smallest'}
 }
 
+mytopic='kafka-twitter-test'
+
 c = Consumer(settings)
 
-c.subscribe(['mytopic'])
+c.subscribe(['mytopic', 'kafka-twitter-test'])
 
 try:
     while True:
