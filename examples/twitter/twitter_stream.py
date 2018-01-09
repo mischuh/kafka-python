@@ -17,13 +17,6 @@ class StdOutListener(tweepy.StreamListener):
 
     producer = Producer({'bootstrap.servers': 'localhost:29092'})
 
-    def acked(self, err, msg):
-        if err is not None:
-            print("Failed to deliver message: {0}: {1}"
-                  .format(msg.value(), err.str()))
-        else:
-            print("Message produced: {0}".format(msg.value()))
-
     def on_status(self, status):
 
         print("{}, {}, {}, {}, {}".format(
@@ -37,11 +30,7 @@ class StdOutListener(tweepy.StreamListener):
         message =  status.text + ',' + status.user.screen_name
         msg = filter(lambda x: x in string.printable, message)
         try:
-            StdOutListener.producer.produce(
-                    mytopic,
-                    str(message),
-                    callback=StdOutListener.acked
-                    )
+            StdOutListener.producer.produce(mytopic,str(message))
             StdOutListener.producer.poll(0.5)
         except (KeyboardInterrupt, Exception) as e:
             print(str(e))
@@ -71,7 +60,7 @@ if __name__ == '__main__':
 
     stream = tweepy.Stream(auth, listener)
     # stream.sample()
-    stream.filter(track=['actian', 'BigData', 'Hadoop', 'Predictive', 'Quantum', 'bigdata', 'Analytics', 'IoT'])
+    stream.filter(track=['machinelearning', 'kafka', 'python'])
 
 
     producer.flush(30)
